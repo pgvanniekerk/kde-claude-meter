@@ -1,0 +1,19 @@
+# Local virtualenv (machine-specific; created by scripts/install.sh)
+.venv/
+
+# Python bytecode / caches
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+
+# Obsidian volatile per-user state (keep plugin + settings, drop layout/cache)
+docs/.obsidian/workspace.json
+
+# Editor / OS cruft
+.idea/
+.vscode/
+*.swp
+.DS_Store
