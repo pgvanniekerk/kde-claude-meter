@@ -21,12 +21,14 @@ This means:
 
 ## Requirements
 
-- **KDE Plasma** (or any desktop with a system-tray / StatusNotifier host)
+> **Supported environment: Ubuntu with the KDE Plasma desktop.** That's what Claude Meter is built and tested for; other distributions and desktop environments are not supported.
+
+- **Ubuntu** running the **KDE Plasma** desktop
 - **Claude Code**, logged in to your Claude (Max/Pro) account
 - **Python 3.11+**
 - **PySide6** — specifically the `QtCore`, `QtGui`, and `QtWidgets` modules
 
-> On Debian/Ubuntu/KDE Neon, PySide6 is split into per-module packages, so installing "PySide6" alone is not enough — see below.
+> On Ubuntu, PySide6 is split into per-module packages, so installing "PySide6" alone is not enough — see below.
 
 ---
 
@@ -34,22 +36,9 @@ This means:
 
 ### 1. Install the system dependencies (PySide6)
 
-**Debian / Ubuntu / KDE Neon:**
 ```bash
 sudo apt install python3-pyside6.qtcore python3-pyside6.qtgui python3-pyside6.qtwidgets
 ```
-
-**Arch / Manjaro:**
-```bash
-sudo pacman -S pyside6
-```
-
-**Fedora:**
-```bash
-sudo dnf install python3-pyside6
-```
-
-**Any distro (via pip, if system packages aren't available):** create a normal venv and `pip install PySide6` — then skip the `--system-site-packages` behaviour of the installer and point it at that venv.
 
 ### 2. Clone the repository
 
@@ -69,7 +58,7 @@ This:
 - generates a launcher at `./.venv/bin/claude-meter`,
 - writes a KDE/XDG **autostart** entry to `~/.config/autostart/claude-meter.desktop`.
 
-> If venv creation fails with an `ensurepip`/`python3-venv` error, the installer already uses `--without-pip` to avoid it. If you still hit it on your distro, install your `python3-venv` package and re-run.
+> If venv creation fails with an `ensurepip`/`python3-venv` error, the installer already uses `--without-pip` to avoid it. If you still hit it, run `sudo apt install python3-venv` and re-run the installer.
 
 ### 4. Start it
 
@@ -142,7 +131,7 @@ Full reference: [`docs/Configuration-Reference.md`](docs/Configuration-Reference
 | Tray icon greyed / "Not logged in" | Run `claude` to log in to Claude Code, then **Refresh now**. |
 | `ModuleNotFoundError: No module named 'PySide6.QtGui'` | Install the per-module PySide6 packages (see step 1). |
 | `ensurepip is not available` during install | Install `python3-venv` for your Python version, or rely on the installer's `--without-pip`. |
-| No tray icon at all | Ensure your desktop has a system-tray widget; on minimal setups a StatusNotifier host may be missing. |
+| No tray icon at all | Ensure the Plasma panel has a *System Tray* widget, and that the entry is enabled in **System Settings → Autostart**. |
 | Icon shows ⚠ *stale* | A fetch failed (network or endpoint change); it retries on the next poll and keeps the last-known values. |
 
 ---
