@@ -64,6 +64,12 @@ class App:
         self.timer.start(self.config.poll_interval_seconds * 1000)
         QTimer.singleShot(0, self.poll)  # poll immediately on startup
 
+        # Lightweight UI refresh so the tooltip's "Updated Ns ago" ticks up
+        # between polls (does not hit the network).
+        self.ui_timer = QTimer()
+        self.ui_timer.timeout.connect(self._refresh_tray)
+        self.ui_timer.start(10_000)
+
     # ---- menu ----------------------------------------------------------
     def _build_menu(self):
         menu = QMenu()
